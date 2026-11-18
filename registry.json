@@ -10,7 +10,7 @@
         "description": "Inference server backend for ARC",
         "restart": "on-failure",
         "health": "restart",
-        "depends": ["infernece-runtime"],
+        "depends": ["inference-runtime"],
         "system_dependencies": [
           {
             "kind": "shared-library",
