@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ARC registry service entry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["repository", "metadata"],
+  "properties": {
+    "repository": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://github\\.com/ARC-V2-AI/[A-Za-z0-9_.-]+(?:\\.git)?$"
+    },
+    "ref": {
+      "type": "string",
+      "minLength": 1,
+      "default": "main"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["module", "name"],
+      "properties": {
+        "module": {"type": "string", "minLength": 1},
+        "name": {"type": "string", "minLength": 1},
+        "description": {"type": "string", "default": ""},
+        "restart": {"type": "string", "enum": ["always", "on-failure", "never"]},
+        "health": {"type": "string", "enum": ["ignore", "restart", "stop"]},
+        "depends": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,79}$"}
+        },
+        "system_dependencies": {
+          "type": "array",
+          "items": {"$ref": "service.schema.json#/$defs/systemDependency"}
+        }
+      }
+    }
+  }
+}

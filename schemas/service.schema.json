@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/ARC-V2-AI/ARC-V2-Registry/main/schemas/service.schema.json",
+  "title": "ARC service metadata ([tool.arc.service])",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "module"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{0,79}$",
+      "description": "Unique ARC service identifier. Other services refer to this value from depends."
+    },
+    "module": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Importable Python module containing the ARC service entry point."
+    },
+    "name": {"type": "string", "minLength": 1},
+    "description": {"type": "string", "default": ""},
+    "restart": {
+      "type": "string",
+      "enum": ["always", "on-failure", "never"],
+      "default": "never"
+    },
+    "health": {
+      "type": "string",
+      "enum": ["ignore", "restart", "stop"],
+      "default": "ignore"
+    },
+    "depends": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9._-]{0,79}$"
+      },
+      "default": []
+    },
+    "system_dependencies": {
+      "type": "array",
+      "default": [],
+      "items": {"$ref": "#/$defs/systemDependency"}
+    }
+  },
+  "$defs": {
+    "systemDependency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "name"],
+      "properties": {
+        "kind": {"type": "string", "enum": ["shared-library", "command"]},
+        "name": {"type": "string", "minLength": 1},
+        "required": {"type": "boolean", "default": true},
+        "description": {"type": "string", "default": ""}
+      }
+    }
+  }
+}

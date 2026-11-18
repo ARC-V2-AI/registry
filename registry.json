@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "services": {
+    "inference-runtime": {
+      "repository": "https://github.com/ARC-V2-AI/inference-runtime.git",
+      "ref": "main",
+      "metadata": {
+        "module": "arc_v2_inference_runtime.service",
+        "name": "ARC Inference Runtime Server",
+        "description": "Inference server backend for ARC",
+        "restart": "on-failure",
+        "health": "restart",
+        "depends": [],
+        "system_dependencies": [
+          {
+            "kind": "shared-library",
+            "name": "libcudart.so.13",
+            "required": true
+          },
+          {
+            "kind": "shared-library",
+            "name": "libcuda.so.1",
+            "required": true
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/ARC-V2-AI/ARC-V2-Registry/main/schemas/registry.schema.json",
+  "title": "ARC-V2 official service registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "services"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "services": {
+      "type": "object",
+      "description": "A mapping keyed by each service's unique [tool.arc.service].id.",
+      "propertyNames": {"pattern": "^[a-z0-9][a-z0-9._-]{0,79}$"},
+      "additionalProperties": {"$ref": "service-entry.schema.json"}
+    }
+  }
+}
