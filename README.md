@@ -5,7 +5,7 @@ The official catalog of ARC-V2 services maintained by the `ARC-V2-AI` organizati
 Forge reads the catalog from:
 
 ```text
-https://raw.githubusercontent.com/ARC-V2-AI/ARC-V2-Registry/main/registry.json
+https://raw.githubusercontent.com/ARC-V2-AI/registry/main/registry.json
 ```
 
 ## Repository layout
